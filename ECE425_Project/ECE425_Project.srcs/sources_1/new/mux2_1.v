@@ -26,6 +26,10 @@ module mux2_1(
     input [0:0] sel,
     output reg [31:0] out
     );
-   
+    wire [31:0] aOut, bOut;
+    
+    and(a,~sel, aOut);
+    and(b,sel, bOut);
+    or(aOut, bOut, out);
 
 endmodule
