@@ -3,15 +3,14 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 03/04/2017 03:46:14 PM
+// Create Date: 03/05/2017 03:20:34 PM
 // Design Name: 
-// Module Name: branchNotEqual
+// Module Name: slt
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: This module will compare two register values,
-//              if the two values are equal, the flag will be '0', and a '1' if
-//              they are equal
+// Description: 
+// 
 // Dependencies: 
 // 
 // Revision:
@@ -21,15 +20,11 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module branchNotEqual(a,b,bneFlag);
+module slt(a, b, lt);
 input [15:0] a,b;
-output bneFlag;
-//eq:0 if not equal, 1 if equal
-wire eq;
+output lt;
 
 //module comparator_16bit(X,Y,lt,gt,eq);
-//lt and gt are left at zero since they are not used
-comparator_16bit(a,b,1'b0,1'b0,eq);
-not not1(bneFlag, eq);
-
+//eq and gt are left at zero since they are not used
+comparator_16bit(a,b,lt,1'b0,1'b0);
 endmodule

@@ -9,7 +9,7 @@
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: 
+// Description: 4 to 16 decoder
 // 
 // Dependencies: 
 // 
