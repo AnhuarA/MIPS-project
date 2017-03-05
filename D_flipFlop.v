@@ -9,7 +9,7 @@
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: 
+// Description: A D flip flop with an asynchronous reset
 // 
 // Dependencies: 
 // 
@@ -20,10 +20,13 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module D_flipFlop(D,Clock,Q);
-input D,Clock;
+module D_flipFlop(Clock,Reset,D,Q);
+input D,Clock,Reset;
 output reg Q;
 
-always @(posedge Clock)
-    Q = D;
+always @(negedge Reset,posedge Clock)
+    if(!Reset)
+        Q<=0;
+    else 
+        Q = D;
 endmodule

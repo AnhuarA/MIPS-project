@@ -47,5 +47,4 @@ decoder2_4 d3(w[1:0], enOut[1], out[7:4]);
 decoder2_4 d4(w[1:0], enOut[2], out[11:8]);
 decoder2_4 d5(w[1:0], enOut[3], out[15:12]);
 
-
 endmodule
