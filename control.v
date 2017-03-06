@@ -20,10 +20,10 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module control(opcode,RegDst,RegWrite,ALU_src,MemWrite,MemRead,MemToReg,branch,ALU_op);
+module control(opcode,RegDst,RegWrite,ALU_src,MemWrite,MemToReg,branch,ALU_op);
 input[5:0] opcode;
 output reg[2:0] ALU_op;
-output reg RegDst,branch,MemRead,MemToReg,MemWrite,RegWrite,ALU_src;
+output reg RegDst,branch,MemToReg,MemWrite,RegWrite,ALU_src;
 
 always @*
 case (opcode)
@@ -32,8 +32,7 @@ case (opcode)
               RegDst=1;
               RegWrite=1; 
               ALU_src =0; 
-              MemWrite=0; 
-              MemRead=0; 
+              MemWrite=0;
               MemToReg=0; 
               branch=0;
               ALU_op<=3'b000;
@@ -44,7 +43,6 @@ case (opcode)
               RegWrite=1; 
               ALU_src =0; 
               MemWrite=0; 
-              MemRead=0;
               MemToReg=0; 
               branch=0;
               ALU_op<=3'b001;
@@ -65,7 +63,6 @@ case (opcode)
               RegWrite=1; 
               ALU_src =0; 
               MemWrite=0; 
-              MemRead=0;
               MemToReg=0; 
               branch=0;
               ALU_op<=3'b011;
@@ -76,7 +73,6 @@ case (opcode)
               RegWrite=1; 
               ALU_src =0; 
               MemWrite=0; 
-              MemRead=0;
               MemToReg=0; 
               branch=0;
               ALU_op<=3'b100;
@@ -87,7 +83,6 @@ case (opcode)
               RegWrite=1; 
               ALU_src =1; 
               MemWrite=0; 
-              MemRead=0;
               MemToReg=1; 
               branch=0;
               ALU_op<=3'b010;
@@ -98,7 +93,6 @@ case (opcode)
               RegWrite=0; 
               ALU_src =1; 
               MemWrite=1; 
-              MemRead=0;
               MemToReg=0; 
               branch=0;
               ALU_op<=3'b010;
@@ -109,7 +103,6 @@ case (opcode)
               RegWrite=0; 
               ALU_src =0; 
               MemWrite=0; 
-              MemRead=0;
               MemToReg=0; 
               branch=1;
               ALU_op<=3'b011;
