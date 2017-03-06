@@ -45,10 +45,10 @@ output [15:0] out;
 
 wire [15:0] mux1,mux2,mux3,mux4;
 
-mux4_1 muxA(in0,in1,in2,in3,sel[4:3],mux1),
-       muxB(in4,in5,in6,in7,sel[4:3],mux2),
-       muxC(in8,in9,in10,in11,sel[4:3],mux3),
-       muxD(in12,in13,in14,in15,sel[4:3],mux4),
+mux4_1 muxA(in0,in1,in2,in3,sel[3:2],mux1),
+       muxB(in4,in5,in6,in7,sel[3:2],mux2),
+       muxC(in8,in9,in10,in11,sel[3:2],mux3),
+       muxD(in12,in13,in14,in15,sel[3:2],mux4),
        muxFinal(mux1,mux2,mux3,mux4,sel[1:0],out);
 
 endmodule

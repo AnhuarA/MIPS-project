@@ -3,15 +3,14 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 03/04/2017 03:46:14 PM
+// Create Date: 03/06/2017 01:10:18 PM
 // Design Name: 
-// Module Name: branchNotEqual
+// Module Name: mux2_1_4bit
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: This module will compare two register values,
-//              if the two values are equal, the flag will be '0', and a '1' if
-//              they are equal
+// Description: 
+// 
 // Dependencies: 
 // 
 // Revision:
@@ -21,12 +20,16 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module branchNotEqual(eq,bneFlag);
-input eq;
-output bneFlag;
-//eq:0 if not equal, 1 if equal
-
-
-not not1(bneFlag, eq);
-
+module mux2_1_4bit(
+    input [3:0] a,
+    input [3:0] b,
+    input  sel,
+    output [3:0] out
+    );
+    
+    wire [3:0] aOut, bOut;
+    
+    and andA(aOut, a, ~sel);
+    and andB(bOut, b, sel);
+    or  or1(out, aOut, bOut);
 endmodule

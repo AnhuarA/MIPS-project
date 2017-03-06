@@ -3,15 +3,14 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 03/04/2017 03:46:14 PM
+// Create Date: 03/06/2017 02:34:33 PM
 // Design Name: 
-// Module Name: branchNotEqual
+// Module Name: MIPS_sim
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: This module will compare two register values,
-//              if the two values are equal, the flag will be '0', and a '1' if
-//              they are equal
+// Description: 
+// 
 // Dependencies: 
 // 
 // Revision:
@@ -21,12 +20,12 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module branchNotEqual(eq,bneFlag);
-input eq;
-output bneFlag;
-//eq:0 if not equal, 1 if equal
+module MIPS_sim();
+reg clk;
+reg reset;
 
 
-not not1(bneFlag, eq);
+MIPS test();
+
 
 endmodule
