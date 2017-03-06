@@ -20,10 +20,10 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module control(opcode,RegDst,RegWrite,ALU_src,MemWrite,MemRead,MemToReg,branch,PC_src,ALU_op);
+module control(opcode,RegDst,RegWrite,ALU_src,MemWrite,MemRead,MemToReg,branch,ALU_op);
 input[5:0] opcode;
 output reg[2:0] ALU_op;
-output reg RegDst,branch,MemRead,MemToReg,MemWrite,RegWrite,ALU_src,PC_src;
+output reg RegDst,branch,MemRead,MemToReg,MemWrite,RegWrite,ALU_src;
 
 always @*
 case (opcode)
@@ -36,7 +36,6 @@ case (opcode)
               MemRead=0; 
               MemToReg=0; 
               branch=0;
-              PC_src=0;
               ALU_op<=3'b000;
               end 
       4'b0001: //OR : 1
@@ -48,7 +47,6 @@ case (opcode)
               MemRead=0;
               MemToReg=0; 
               branch=0;
-              PC_src=0;
               ALU_op<=3'b001;
               end
       4'b0010: //ADD : 2
@@ -59,7 +57,6 @@ case (opcode)
               MemWrite=0; 
               MemToReg=0; 
               branch=0;
-              PC_src=0;
               ALU_op<=3'b010;
               end 
       4'b0110: //SUB
@@ -71,7 +68,6 @@ case (opcode)
               MemRead=0;
               MemToReg=0; 
               branch=0;
-              PC_src=0;
               ALU_op<=3'b011;
                end 
       4'b0111: //SLT
@@ -83,7 +79,6 @@ case (opcode)
               MemRead=0;
               MemToReg=0; 
               branch=0;
-              PC_src=0;
               ALU_op<=3'b100;
               end 
       4'b1000: //LW
@@ -95,7 +90,6 @@ case (opcode)
               MemRead=0;
               MemToReg=1; 
               branch=0;
-              PC_src=0;
               ALU_op<=3'b010;
               end
       4'b1010: //SW
@@ -107,7 +101,6 @@ case (opcode)
               MemRead=0;
               MemToReg=0; 
               branch=0;
-              PC_src = 0;
               ALU_op<=3'b010;
               end 
       4'b1110: //BNE
@@ -119,7 +112,6 @@ case (opcode)
               MemRead=0;
               MemToReg=0; 
               branch=1;
-              PC_src=1;
               ALU_op<=3'b011;
               end
    endcase
