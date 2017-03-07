@@ -43,7 +43,7 @@ log_AND aluAND(X,Y,andOut);
 //Logical OR
 //opcode: 0x1
 //module log_OR(x,y,out);
-log_OR(X,Y,orOut);
+log_OR aluOR(X,Y,orOut);
 
 //ADD/SUB
 //opcode: 0x2 / 0x6 (add_sub bit comes from opcod[2])
@@ -53,9 +53,9 @@ twos_comp add0(X,Y,Cin,add_sub, twosOut, Cout, V);
 //SLT
 //opcode: 0x7
 //module comparator_16bit(X,Y,lt,gt,eq);
-comparator_16bit(X,Y,lt,gt,eq);
-and lt0(ltResult, 1'b1, lt);
-assign ltResultExt = ltResult;
+comparator_16bit sltCompare(X,Y,lt,gt,eq);
+assign ltResultExt = {{15{1'b0}},lt};
+
 
 //LW
 //opcode: 0x8
@@ -70,7 +70,7 @@ twos_comp sw0(X,Y,Cin,1'b0, swAddr, Cout, V);
 //BNE
 //opcode: 0xE
 //module comparator_16bit(X,Y,lt,gt,eq);
-comparator_16bit(X,Y,lt,gt,eq);
+comparator_16bit bneCompare(X,Y,lt,gt,eq);
 twos_comp bne(X,Y,Cin,add_sub, branchAddr, Cout, V);
 
 

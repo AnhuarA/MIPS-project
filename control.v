@@ -21,7 +21,7 @@
 
 
 module control(opcode,RegDst,RegWrite,ALU_src,MemWrite,MemRead,MemToReg,branch,PC_src,ALU_op);
-input[5:0] opcode;
+input[3:0] opcode;
 output reg[2:0] ALU_op;
 output reg RegDst,branch,MemRead,MemToReg,MemWrite,RegWrite,ALU_src,PC_src;
 
