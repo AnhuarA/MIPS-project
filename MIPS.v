@@ -39,7 +39,6 @@ wire bneCin,bneCout,bneV;
 
 wire [3:0] opcod,Aaddr,Baddr,Caddr;
 wire [3:0] writeReg; //Output address of the RegDst MUX
-wire Clear;
 
 wire lt,eq,gt, bneFlag, zero;
 
@@ -66,7 +65,7 @@ incrPC incr(PC, nextPC);
  
  //Get control values
 //module control(opcode,RegDst,RegWrite,ALU_src,MemWrite,MemRead,MemToReg,branch,PC_src,ALU_op);
-control ctrl(opCod,RegDst,RegWrite,ALU_src,MemWrite,MemRead,MemToReg,branch,PC_src,ALU_op);
+ control ctrl(opcod,RegDst,RegWrite,ALU_src,MemWrite,MemRead,MemToReg,branch,PC_src,ALU_op);
  
  //RegDst MUX
  mux2_1_4bit regDstMUX(Baddr,Caddr,RegDst,writeReg);
@@ -81,7 +80,7 @@ reg_file fileReg(R1,R2,memToRegOutput,Aaddr,Baddr,writeReg,RegWrite,Clear,clk);
 signExt offset0(Instr[3:0], signOffset);
 //Add the sign extended offset to the incremented PC 
 //module twos_comp(X,Y,Cin,addsub,sum,Cout,overflow);
-twos_comp(nextPC, signOffset,bneCin,1'b0,branchPCoffset,bneCout,bneV);
+twos_comp twos_comp_next(nextPC, signOffset,bneCin,1'b0,branchPCoffset,bneCout,bneV);
 
 //ALUsrc MUX
 mux2_1 ALUsrcMUX(R2, signOffset, ALU_src, ALUsrcOutput);
