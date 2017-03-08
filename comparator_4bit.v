@@ -21,14 +21,12 @@
 
 
 module comparator_4bit(X,Y,lt,gt,eq);
-input[0:3] X;
-input[0:3] Y;
+input[3:0] X;
+input[3:0] Y;
 output lt,gt,eq;
 
-wire[0:9] w;
-wire[0:3] notY;
-wire[0:3] notX;
-
+wire[9:0] w;
+wire[3:0] notY;
 not NOT0(notY[0],Y[0]);
 not NOT1(notY[1],Y[1]);
 not NOT2(notY[2],Y[2]);
