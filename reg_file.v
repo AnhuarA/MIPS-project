@@ -27,12 +27,33 @@ input Load;
 input Clear,clk;
 output [15:0] A, B;
 
-wire [255:0] inVal, outVal;
+wire [15:0] inVal [0:15];
 
 wire [15:0] decOut;
 
+reg [15:0]register[0:15];
 
+//Initialize memory
+initial begin
+register[0] = 16'b0000_0000_0000_0000;
+register[1] = 16'b0000_0000_0000_0000;
+register[2] = 16'b0000_0000_0000_0000;
+register[3] = 16'b0000_0000_0000_0000;
+register[4] = 16'b0000_0000_0000_0011;
+register[5] = 16'b0000_0000_0000_0000;
+register[6] = 16'b0000_0000_0000_0000;
+register[7] = 16'b0000_0000_0000_0000;
+register[8] = 16'b0000_0000_0000_0000;
+register[9] = 16'b0000_0000_0000_0000;
+register[10] = 16'b0000_0000_0000_0000;
+register[11] = 16'b0000_0000_0000_0000;
+register[12] = 16'b0000_0000_0000_0000;
+register[13] = 16'b0000_0000_0000_0000;
+register[14] = 16'b0000_0000_0000_0000;
+register[15] = 16'b0000_0000_0000_0000;
+end
 
+/*
 //Create 16, 16-bit registers
 //module bit16_Reg(clock, reset, in, out);
 bit16_Reg  Reg0(.clock(clk), .reset(Clear), .in(inVal[15:0]),    .out(outVal[15:0]));
@@ -51,16 +72,20 @@ bit16_Reg  Reg12(.clock(clk),.reset(Clear), .in(inVal[207:192]), .out(outVal[207
 bit16_Reg  Reg13(.clock(clk),.reset(Clear), .in(inVal[223:208]), .out(outVal[223:208]));
 bit16_Reg  Reg14(.clock(clk),.reset(Clear), .in(inVal[239:224]), .out(outVal[239:224]));
 bit16_Reg  Reg15(.clock(clk),.reset(Clear), .in(inVal[255:240]), .out(outVal[255:240]));
-
+//*/
 
 //Select A and B using the Aaddr and Baddr
-//module mux16_1(in0,in1,in2,in3,in4,in5,in6,in7,in8,in9,in10,in11,in12,in13,in14,in15, sel, out);
+//module mux16_1(in0,in1,in2,in3,in4,in5,in6,in7,in8,in9,in10,in11,in12,in13,in14,in15,en, sel, out);
 //A
-mux16_1 muxA(outVal[15:0],outVal[31:16],outVal[47:32],outVal[63:48],outVal[79:64],outVal[95:80],outVal[111:96],outVal[127:112],
-        outVal[143:128],outVal[159:144],outVal[175:160],outVal[191:176],outVal[207:192],outVal[223:208],outVal[239:224],outVal[255:240],Aaddr,A);
+mux16_1 muxA(register[0],register[1],register[2],register[3],
+             register[4],register[5],register[6],register[7],
+             register[8],register[9],register[10],register[11],
+             register[12],register[13],register[14],register[15],1'b1,Aaddr,A);
 //B
-mux16_1 muxB(outVal[15:0],outVal[31:16],outVal[47:32],outVal[63:48],outVal[79:64],outVal[95:80],outVal[111:96],outVal[127:112],
-        outVal[143:128],outVal[159:144],outVal[175:160],outVal[191:176],outVal[207:192],outVal[223:208],outVal[239:224],outVal[255:240],Baddr,B);
+mux16_1 muxB(register[0],register[1],register[2],register[3],
+             register[4],register[5],register[6],register[7],
+             register[8],register[9],register[10],register[11],
+             register[12],register[13],register[14],register[15],1'b1,Baddr,B);
         
 //Decode the Caddr if the load signal is enabled
 //module decoder4_16(w, en, out);
@@ -69,21 +94,40 @@ decoder4_16 decode(Caddr, Load, decOut);
 //use 2 to 1 muxes to select between either new value or retain old value
 //mux2_1(a,b,sel,out)
 
-mux2_1 mux0(outVal[15:0],    C, decOut[0],  inVal[15:0]);
-mux2_1 mux1(outVal[31:16],   C, decOut[1],  inVal[31:16]);
-mux2_1 mux2(outVal[47:32],   C, decOut[2],  inVal[47:32]);
-mux2_1 mux3(outVal[63:48],   C, decOut[3],  inVal[63:48]);
-mux2_1 mux4(outVal[79:64],   C, decOut[4],  inVal[79:64]);
-mux2_1 mux5(outVal[95:80],   C, decOut[5],  inVal[95:80]);
-mux2_1 mux6(outVal[111:96],  C, decOut[6],  inVal[111:96]);
-mux2_1 mux7(outVal[127:112], C, decOut[7],  inVal[127:112]);
-mux2_1 mux8(outVal[143:128], C, decOut[8],  inVal[143:128]);
-mux2_1 mux9(outVal[159:144], C, decOut[9],  inVal[159:144]);
-mux2_1 mux10(outVal[175:160],C, decOut[10], inVal[175:160]);
-mux2_1 mux11(outVal[191:176],C, decOut[11], inVal[191:176]);
-mux2_1 mux12(outVal[207:192],C, decOut[12], inVal[207:192]);
-mux2_1 mux13(outVal[223:208],C, decOut[13], inVal[223:208]);
-mux2_1 mux14(outVal[239:224],C, decOut[14], inVal[239:224]);
-mux2_1 mux15(outVal[255:240],C, decOut[15], inVal[255:240]);
+mux2_1 mux0(register[0],    C,1'b1, decOut[0],  inVal[0]);
+mux2_1 mux1(register[1],   C,1'b1, decOut[1],  inVal[1]);
+mux2_1 mux2(register[2],   C,1'b1, decOut[2],  inVal[2]);
+mux2_1 mux3(register[3],   C,1'b1, decOut[3],  inVal[3]);
+mux2_1 mux4(register[4],   C,1'b1, decOut[4],  inVal[4]);
+mux2_1 mux5(register[5],   C,1'b1, decOut[5],  inVal[5]);
+mux2_1 mux6(register[6],  C,1'b1, decOut[6],  inVal[6]);
+mux2_1 mux7(register[7], C,1'b1, decOut[7],  inVal[7]);
+mux2_1 mux8(register[8], C,1'b1, decOut[8],  inVal[8]);
+mux2_1 mux9(register[9], C,1'b1, decOut[9],  inVal[9]);
+mux2_1 mux10(register[10],C,1'b1, decOut[10], inVal[10]);
+mux2_1 mux11(register[11],C,1'b1, decOut[11], inVal[11]);
+mux2_1 mux12(register[12],C,1'b1, decOut[12], inVal[12]);
+mux2_1 mux13(register[13],C,1'b1, decOut[13], inVal[13]);
+mux2_1 mux14(register[14],C,1'b1, decOut[14], inVal[14]);
+mux2_1 mux15(register[15],C,1'b1, decOut[15], inVal[15]);
 
+always@(*)
+begin
+register[0] = inVal[0];
+register[1] = inVal[1];
+register[2] = inVal[2];
+register[3] = inVal[3];
+register[4] = inVal[4];
+register[5] = inVal[5];
+register[6] = inVal[6];
+register[7] = inVal[7];
+register[8] = inVal[8];
+register[9] = inVal[9];
+register[10] = inVal[10];
+register[11] = inVal[11];
+register[12] = inVal[12];
+register[13] = inVal[13];
+register[14] = inVal[14];
+register[15] = inVal[15];
+end
 endmodule
