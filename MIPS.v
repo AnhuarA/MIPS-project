@@ -68,7 +68,7 @@ incrPC incr(PC, nextPC);
 control ctrl(opCod,RegDst,RegWrite,ALU_src,MemWrite,MemRead,MemToReg,branch,PC_src,ALU_op);
  
  //RegDst MUX
- mux2_1_4bit regDstMUX(Baddr,Caddr,RegDst,writeReg);
+ mux2_1_4bit regDstMUX(Baddr,Caddr,1'b1,RegDst,writeReg);
  
 
  //File Register
@@ -83,7 +83,7 @@ signExt offset0(Instr[3:0], signOffset);
 twos_comp offsetCalc(nextPC, signOffset,bneCin,1'b0,branchPCoffset,bneCout,bneV);
 
 //ALUsrc MUX
-mux2_1 ALUsrcMUX(R2, signOffset, ALU_src, ALUsrcOutput);
+mux2_1 ALUsrcMUX(R2, signOffset,1'b1, ALU_src, ALUsrcOutput);
 
 //ALU
 //module alu(X,Y,out,Cin,Cout,lt,eq,gt,V,opcod);
@@ -94,7 +94,7 @@ alu aluMIPS(R1, ALUsrcOutput, ALUresult, Cin, Cout, lt, eq, gt, V, opcod);
 data_mem dataMemory(clk, ALUresult, MemWrite, R2, readData);
 
 //Mem to Reg MUX
-mux2_1 memToRegMux(ALUresult, readData, MemToReg, memToRegOutput);
+mux2_1 memToRegMux(ALUresult, readData,1'b1, MemToReg, memToRegOutput);
 
 //BNE MUX
 //first we create the zero flag
@@ -103,7 +103,7 @@ branchNotEqual bneFl(eq,zero);
 //We AND the zero with the branch control signal 
 and bneCheck(bneFlag, branch, zero);
 //We then use this flag as the select bit for the MUX
-mux2_1 bneMUX(nextPC, branchPCoffset, bneFlag, newPC);
+mux2_1 bneMUX(nextPC, branchPCoffset,1'b1, bneFlag, newPC);
 
 
 

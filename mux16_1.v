@@ -19,36 +19,38 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module mux4_1(a,b,c,d,sel,out);
+module mux4_1(a,b,c,d,en,sel,out);
 input [15:0] a,b,c,d;
 input [1:0] sel;
+input en;
 output [15:0] out;
 
 wire [15:0] mux1,mux2;
 
-mux2_1 muxA(a,b,sel[1],mux1),
-       muxB(c,d,sel[1],mux2),
-       muxC(mux1,mux2,sel[0],out); 
+mux2_1 muxA(a,b,en,sel[0],mux1),
+       muxB(c,d,en,sel[0],mux2),
+       muxC(mux1,mux2,en,sel[1],out); 
 
 endmodule
 
 module mux16_1(in0,in1,in2,in3,
                in4,in5,in6,in7,
                in8,in9,in10,in11,
-               in12,in13,in14,in15, sel, out);
+               in12,in13,in14,in15,en, sel, out);
 input   [15:0] in0,in1,in2,in3,
                in4,in5,in6,in7,
                in8,in9,in10,in11,
                in12,in13,in14,in15;
 input [3:0] sel;
+input en;
 output [15:0] out;
 
 wire [15:0] mux1,mux2,mux3,mux4;
 
-mux4_1 muxA(in0,in1,in2,in3,sel[1:0],mux1),
-       muxB(in4,in5,in6,in7,sel[1:0],mux2),
-       muxC(in8,in9,in10,in11,sel[1:0],mux3),
-       muxD(in12,in13,in14,in15,sel[1:0],mux4),
-       muxFinal(mux1,mux2,mux3,mux4,sel[3:2],out);
+mux4_1 muxA(in0,in1,in2,in3,en,sel[1:0],mux1),
+       muxB(in4,in5,in6,in7,en,sel[1:0],mux2),
+       muxC(in8,in9,in10,in11,en,sel[1:0],mux3),
+       muxD(in12,in13,in14,in15,en,sel[1:0],mux4),
+       muxFinal(mux1,mux2,mux3,mux4,en,sel[3:2],out);
 
 endmodule

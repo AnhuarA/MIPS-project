@@ -27,13 +27,14 @@ reg   [15:0] in0,in1,in2,in3,
                in12,in13,in14,in15;
 reg [3:0] sel;
 wire [15:0] out;
+reg en;
                
 wire [15:0] mux1,mux2,mux3,mux4;
 
 mux16_1 uut(in0,in1,in2,in3,
                in4,in5,in6,in7,
                in8,in9,in10,in11,
-               in12,in13,in14,in15, sel, out);
+               in12,in13,in14,in15,en, sel, out);
 initial begin
 in0 =16'h0;
 in1 =16'h1; 
@@ -45,13 +46,14 @@ in6 =16'h6;
 in7 =16'h7;
 in8 =16'h8;
 in9 =16'h9;
-in10 =16'hA;
+in10 =16'hAB;
 in11 =16'hB;
 in12 =16'hC;
 in13 =16'hD;
 in14 =16'hE;
 in15  =16'hF;
-sel = 4'h3;
+sel = 4'hA;
+en = 1'b1;
 end        
 
 endmodule

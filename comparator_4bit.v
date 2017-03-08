@@ -27,6 +27,8 @@ output lt,gt,eq;
 
 wire[9:0] w;
 wire[3:0] notY;
+wire[3:0] notX;
+
 not NOT0(notY[0],Y[0]);
 not NOT1(notY[1],Y[1]);
 not NOT2(notY[2],Y[2]);
