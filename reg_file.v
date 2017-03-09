@@ -35,22 +35,22 @@ reg [15:0]register[0:15];
 
 //Initialize memory
 initial begin
-register[0] = 16'b0000_0000_0000_0000;
-register[1] = 16'b0000_0000_0000_0000;
-register[2] = 16'b0000_0000_0000_0000;
-register[3] = 16'b0000_0000_0000_0000;
-register[4] = 16'b0000_0000_0000_0011;
-register[5] = 16'b0000_0000_0000_0000;
-register[6] = 16'b0000_0000_0000_0000;
-register[7] = 16'b0000_0000_0000_0000;
-register[8] = 16'b0000_0000_0000_0000;
-register[9] = 16'b0000_0000_0000_0000;
-register[10] = 16'b0000_0000_0000_0000;
-register[11] = 16'b0000_0000_0000_0000;
-register[12] = 16'b0000_0000_0000_0000;
-register[13] = 16'b0000_0000_0000_0000;
-register[14] = 16'b0000_0000_0000_0000;
-register[15] = 16'b0000_0000_0000_0000;
+register[0] <= 16'b0000_0000_0000_0000;
+register[1] <= 16'b0000_0000_0000_0000;
+register[2] <= 16'b0000_0000_0000_0000;
+register[3] <= 16'b0000_0000_0000_0000;
+register[4] <= 16'b0000_0000_0000_0011;
+register[5] <= 16'b0000_0000_0000_0000;
+register[6] <= 16'b0000_0000_0000_0000;
+register[7] <= 16'b0000_0000_0000_0000;
+register[8] <= 16'b0000_0000_0000_0000;
+register[9] <= 16'b0000_0000_0000_0000;
+register[10] <= 16'b0000_0000_0000_0000;
+register[11] <= 16'b0000_0000_0000_0000;
+register[12] <= 16'b0000_0000_0000_0000;
+register[13] <= 16'b0000_0000_0000_0000;
+register[14] <= 16'b0000_0000_0000_0000;
+register[15] <= 16'b0000_0000_0000_0000;
 end
 
 /*
@@ -95,39 +95,40 @@ decoder4_16 decode(Caddr, Load, decOut);
 //mux2_1(a,b,sel,out)
 
 mux2_1 mux0(register[0],    C,1'b1, decOut[0],  inVal[0]);
-mux2_1 mux1(register[1],   C,1'b1, decOut[1],  inVal[1]);
-mux2_1 mux2(register[2],   C,1'b1, decOut[2],  inVal[2]);
-mux2_1 mux3(register[3],   C,1'b1, decOut[3],  inVal[3]);
-mux2_1 mux4(register[4],   C,1'b1, decOut[4],  inVal[4]);
-mux2_1 mux5(register[5],   C,1'b1, decOut[5],  inVal[5]);
-mux2_1 mux6(register[6],  C,1'b1, decOut[6],  inVal[6]);
-mux2_1 mux7(register[7], C,1'b1, decOut[7],  inVal[7]);
-mux2_1 mux8(register[8], C,1'b1, decOut[8],  inVal[8]);
-mux2_1 mux9(register[9], C,1'b1, decOut[9],  inVal[9]);
-mux2_1 mux10(register[10],C,1'b1, decOut[10], inVal[10]);
-mux2_1 mux11(register[11],C,1'b1, decOut[11], inVal[11]);
-mux2_1 mux12(register[12],C,1'b1, decOut[12], inVal[12]);
-mux2_1 mux13(register[13],C,1'b1, decOut[13], inVal[13]);
-mux2_1 mux14(register[14],C,1'b1, decOut[14], inVal[14]);
-mux2_1 mux15(register[15],C,1'b1, decOut[15], inVal[15]);
+mux2_1 mux1(register[1],    C,1'b1, decOut[1],  inVal[1]);
+mux2_1 mux2(register[2],    C,1'b1, decOut[2],  inVal[2]);
+mux2_1 mux3(register[3],    C,1'b1, decOut[3],  inVal[3]);
+mux2_1 mux4(register[4],    C,1'b1, decOut[4],  inVal[4]);
+mux2_1 mux5(register[5],    C,1'b1, decOut[5],  inVal[5]);
+mux2_1 mux6(register[6],    C,1'b1, decOut[6],  inVal[6]);
+mux2_1 mux7(register[7],    C,1'b1, decOut[7],  inVal[7]);
+mux2_1 mux8(register[8],    C,1'b1, decOut[8],  inVal[8]);
+mux2_1 mux9(register[9],    C,1'b1, decOut[9],  inVal[9]);
+mux2_1 mux10(register[10],  C,1'b1, decOut[10], inVal[10]);
+mux2_1 mux11(register[11],  C,1'b1, decOut[11], inVal[11]);
+mux2_1 mux12(register[12],  C,1'b1, decOut[12], inVal[12]);
+mux2_1 mux13(register[13],  C,1'b1, decOut[13], inVal[13]);
+mux2_1 mux14(register[14],  C,1'b1, decOut[14], inVal[14]);
+mux2_1 mux15(register[15],  C,1'b1, decOut[15], inVal[15]);
 
 always@(*)
+if(Load == 1'b1)
 begin
-register[0] = inVal[0];
-register[1] = inVal[1];
-register[2] = inVal[2];
-register[3] = inVal[3];
-register[4] = inVal[4];
-register[5] = inVal[5];
-register[6] = inVal[6];
-register[7] = inVal[7];
-register[8] = inVal[8];
-register[9] = inVal[9];
-register[10] = inVal[10];
-register[11] = inVal[11];
-register[12] = inVal[12];
-register[13] = inVal[13];
-register[14] = inVal[14];
-register[15] = inVal[15];
+register[0] <= inVal[0];
+register[1] <= inVal[1];
+register[2] <= inVal[2];
+register[3] <= inVal[3];
+register[4] <= inVal[4];
+register[5] <= inVal[5];
+register[6] <= inVal[6];
+register[7] <= inVal[7];
+register[8] <= inVal[8];
+register[9] <= inVal[9];
+register[10] <= inVal[10];
+register[11] <= inVal[11];
+register[12] <= inVal[12];
+register[13] <= inVal[13];
+register[14] <= inVal[14];
+register[15] <= inVal[15];
 end
 endmodule

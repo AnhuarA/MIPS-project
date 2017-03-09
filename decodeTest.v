@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 03/05/2017 11:57:30 PM
+// Create Date: 03/08/2017 03:13:08 PM
 // Design Name: 
-// Module Name: programCounter
+// Module Name: decodeTest
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,18 +20,16 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module programCounter(clk,inputAddr, outputAddr);
-input clk;
-input [15:0] inputAddr;
-output reg [15:0] outputAddr;
+module decodeTest;
+//module decoder4_16(w, en, out);
+reg [3:0] w;
+reg en;
+wire [15:0] out;
 
-//initialize PC to 0
+decoder4_16 uut(w,en,out);
+
 initial begin
-outputAddr = 0;
+w = 4'b1111;
+en = 1'b1;
 end
-
-//assign the input address(PCsrc MUX)
-//as the new PC value
-always @(posedge clk)
-    outputAddr <= inputAddr;
 endmodule

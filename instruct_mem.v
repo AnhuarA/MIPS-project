@@ -29,9 +29,10 @@ reg[15:0] instruction;
 
 //Initialize memory
 initial begin
-instruct_mem[0] = 16'b0000_0000_0000_0000;    //AND
-instruct_mem[1] = 16'b0001_0000_0000_0000;    //OR
-instruct_mem[2] = 16'b0010_0000_0000_0000;    //ADD
+//Instruction format:opcod, rs,  rt, rd                 
+instruct_mem[0] = 16'b1000_0100_0001_0000;    //LW: store mem[4] into register 1  
+instruct_mem[1] = 16'b1000_0111_0010_0000;    //LW: store mem[7] into register 2
+instruct_mem[2] = 16'b0010_0001_0010_0011;    //ADD: add resgisters  1 and 2 and store in register 3
 instruct_mem[3] = 16'b0110_0000_0000_0000;    //SUB
 instruct_mem[4] = 16'b0111_0000_0000_0000;    //SLT
 instruct_mem[5] = 16'b1000_0000_0000_0000;    //LW
