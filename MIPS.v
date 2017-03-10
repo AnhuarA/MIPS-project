@@ -20,10 +20,11 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module MIPS(clk,PC,R1,R2,R3,newPC, branchPCoffset, nextPC,signOffset,Instr,ALUresult, ALUsrcOut, memData);
+module MIPS(clk,PC,A,B,R3,newPC, branchPCoffset, nextPC,signOffset,Instr,ALUresult, ALUsrcOut, memData,opcod,Aaddr,Baddr,Caddr,writeReg);
 input clk;
 output [15:0] PC;
-output [15:0] R1,R2,R3;
+output wire [15:0] A,B,R3;
+
 
 //newPC = PC value output from branch MUX
 //nextPC = Previous PC value incremented by 1
@@ -40,21 +41,26 @@ wire bneCin,bneCout,bneV;
 wire [3:0] opcod,Aaddr,Baddr,Caddr;
 wire [3:0] writeReg; //Output address of the RegDst MUX
 
-wire lt,eq,gt, bneFlag, zero;
-
-assign opcod = Instr[15:12];
-assign Aaddr = Instr[11:8];
-assign Baddr = Instr[7:4];
-assign Caddr = Instr[3:0];
-
+wire lt,eq,gt,V, bneFlag, zero;
 wire [15:0] memToRegOutput;
+wire  readData;
 
 //TEST OUTPUTS////
 output [15:0] newPC, branchPCoffset, nextPC;
 output [15:0] signOffset;
 output [15:0] Instr;
 output [15:0] ALUresult, ALUsrcOut, memData;
+output [3:0] opcod,Aaddr,Baddr,Caddr;
+output [3:0] writeReg; //Output address of the RegDst MUX
 /////////////////
+assign opcod = Instr[15:12];
+assign Aaddr = Instr[11:8];
+assign Baddr = Instr[7:4];
+assign Caddr = Instr[3:0];
+
+
+
+
 
 //Create Program Counter 
 //module programCounter(clk,inputAddr, outputAddr); 
@@ -64,21 +70,22 @@ programCounter pc(clk,newPC,PC);
 //module incrPC(oldAddr,newAddr); 
 incrPC incr(PC, nextPC);
  
- //Instruction Memory
- //module instruct_mem(address,instruction);
- instruct_mem instruct_mem0(PC, Instr);
+//Instruction Memory
+//module instruct_mem(address,instruction);
+instruct_mem instruct_mem0(PC, Instr);
  
- //Get control values
+//Get control values
 //module control(opcode,RegDst,RegWrite,ALU_src,MemWrite,MemToReg,branch);
 control ctrl(opcod,RegDst,RegWrite,ALU_src,MemWrite,MemToReg,branch);
  
- //RegDst MUX
- mux2_1_4bit regDstMUX(Baddr,Caddr,1'b1,RegDst,writeReg);
+//RegDst MUX
+mux2_1_4bit regDstMUX(Baddr,Caddr,1'b1,RegDst,writeReg);
  
 
- //File Register
+//File Register
 //module reg_file(A,B,C,Aaddr,Baddr,Caddr,Load,clk);
-reg_file fileReg(R1,R2,memToRegOutput,Aaddr,Baddr,writeReg,RegWrite,clk); 
+//reg_file uut(A,B,C,Aaddr,Baddr,Caddr,Load,clk);
+reg_file fileReg(A,B,memToRegOutput,Aaddr,Baddr,writeReg,RegWrite,clk); 
  
 //Sign Extend offset and add to new incremented PC 
 //module signExt(in, out); 
@@ -88,15 +95,15 @@ signExt offset0(Instr[3:0], signOffset);
 twos_comp offsetCalc(nextPC, signOffset,1'b1,1'b0,branchPCoffset,bneCout,bneV);
 
 //ALUsrc MUX
-mux2_1 ALUsrcMUX(R2, signOffset,1'b1, ALU_src, ALUsrcOut);
+mux2_1 ALUsrcMUX(B, signOffset,1'b1, ALU_src, ALUsrcOut);
 
 //ALU
-//module alu(X,Y,out,Cin,Cout,lt,eq,gt,V,opcod);
-alu aluMIPS(R1, ALUsrcOut, ALUresult, Cout, lt, eq, gt, V, opcod);
+//module alu(X,Y,out,Cout,lt,eq,gt,V,opcode);
+alu aluMIPS(A, ALUsrcOut, ALUresult, Cout, lt, eq, gt, V, opcod);
 
 //Data Memory
 //module data_mem(clk,address,MemWrite,writeData,readData);
-data_mem dataMemory(clk, ALUresult, MemWrite, R2, readData);
+data_mem dataMemory(clk, ALUresult, MemWrite, B, readData);
 
 //Mem to Reg MUX
 mux2_1 memToRegMux(ALUresult, readData,1'b1, MemToReg, memToRegOutput);

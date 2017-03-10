@@ -34,8 +34,8 @@ reg [15:0]register[0:15];
 //Initialize memory
 initial begin
 register[0] <= 16'b0000_0000_0000_0000;//$zero
-register[1] <= 16'b0000_0000_0000_0100;//4
-register[2] <= 16'b0000_0000_0000_0010;//2
+register[1] <= 16'b0000_0000_0000_0001;//Initially holds address of mem[1]
+register[2] <= 16'b0000_0000_0000_0010;//Initially holds address of mem[2]
 register[3] <= 16'b0000_0000_0000_0000;
 register[4] <= 16'b0000_0000_0000_0000;//0
 register[5] <= 16'b0000_0000_0000_0000;
@@ -56,8 +56,6 @@ assign A = register[Aaddr];
 assign B = register[Baddr];
 
 always@(*)
-
-
 if(Load == 1'b1)
 begin
 register[Caddr] <= C;

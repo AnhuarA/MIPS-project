@@ -31,7 +31,7 @@ alu uut (X,Y,out,Cin,Cout,lt,eq,gt,V,opcode);
 
 initial 
 begin
-X = 4'h2; //add
+X = 4'h5; //add
 Y=4'h5;
 Cin=0;
 opcode=4'b0010;

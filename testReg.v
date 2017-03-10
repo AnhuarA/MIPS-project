@@ -32,16 +32,16 @@ reg_file uut(A,B,C,Aaddr,Baddr,Caddr,Load,clk);
 
 initial begin 
     clk=0;
-    Aaddr = 4;
-    Baddr = 5;
-    Caddr = 5;
+    Aaddr = 1;
+    Baddr = 2;
+    Caddr = 1;
     C = 1;
-    Load = 1;
+    Load = 0;
     
     repeat (1000)
     begin
     #1 clk=~clk;
-    Load = 0;
+    Load = 1;
     end
 end
 
