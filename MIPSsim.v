@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 03/08/2017 02:26:54 PM
+// Create Date: 03/06/2017 02:34:33 PM
 // Design Name: 
-// Module Name: testReg
+// Module Name: MIPS_sim
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,29 +20,25 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module testReg;
-//module reg_file(A,B,C,Aaddr,Baddr,Caddr,Load,Clear,clk);
-reg [3:0] Aaddr, Baddr, Caddr;
-reg [15:0] C;
-reg Load;
+module MIPSsim();
 reg clk;
-wire [15:0] A, B;
+wire [15:0] PC, R1, R2, R3;
 
-reg_file uut(A,B,C,Aaddr,Baddr,Caddr,Load,clk);
+wire [15:0] newPC, branchPCoffset, nextPC;
+wire [15:0] signOffset;
+wire [15:0] Instr;
+wire [15:0] ALUresult, ALUsrcOut, memData;
+//module MIPS(clk,PC,R1,R2,R3);
+MIPS uut(clk,PC,R1,R2,R3 ,newPC, branchPCoffset, nextPC,signOffset,Instr,ALUresult, ALUsrcOut, memData);
 
 initial begin 
+
     clk=0;
-    Aaddr = 4;
-    Baddr = 5;
-    Caddr = 5;
-    C = 1;
-    Load = 1;
-    
+
     repeat (1000)
     begin
     #1 clk=~clk;
-    Load = 0;
+
     end
 end
-
 endmodule
