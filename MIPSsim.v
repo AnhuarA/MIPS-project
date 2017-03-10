@@ -3,13 +3,13 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 03/08/2017 02:26:54 PM
+// Create Date: 03/06/2017 02:34:33 PM
 // Design Name: 
-// Module Name: testReg
+// Module Name: MIPS_sim
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: 
+// Description: Simulation file for MIPS processor
 // 
 // Dependencies: 
 // 
@@ -20,29 +20,21 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module testReg;
-//module reg_file(A,B,C,Aaddr,Baddr,Caddr,Load,Clear,clk);
-reg [3:0] Aaddr, Baddr, Caddr;
-reg [15:0] C;
-reg Load;
+module MIPSsim();
 reg clk;
-wire [15:0] A, B;
+wire [15:0] PC, R1, R2, R3;
 
-reg_file uut(A,B,C,Aaddr,Baddr,Caddr,Load,clk);
+//module MIPS(clk,PC,R1,R2,R3);
+MIPS uut(clk,PC,R1,R2,R3);
 
 initial begin 
+
     clk=0;
-    Aaddr = 1;
-    Baddr = 2;
-    Caddr = 1;
-    C = 1;
-    Load = 0;
-    
+
     repeat (1000)
     begin
     #1 clk=~clk;
-    Load = 1;
+
     end
 end
-
 endmodule
